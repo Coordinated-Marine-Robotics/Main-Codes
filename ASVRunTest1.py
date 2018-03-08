@@ -1,9 +1,11 @@
 import ASV_Functions as F
 import ASV_Parameters as P
 import numpy as np
+import imu
 import laser2
 import maestro 
-import time
+import time,sys,tty,termios
+import foam
 
 get_Camera_Distance = F.get_Camera_Distance()
 
@@ -18,16 +20,15 @@ servo.setRange(2, min_value, max_value)
 servo.setTarget(0,6000)
 servo.setTarget(1,6000)
 servo.setTarget(2,6000)
-time.sleep(1)
 
-def start():
-	
-	while("detection" == True):		#need to add when object is detected
-		if camera_centre != object_centre: #need to include frame centre from foam.py
-			while(object_centre < camera_centre):
-				turnLeft(0.5)
-			else:
-				turnRight(0.5)
+"""def start():
+	foam.webcam()
+	#while("detection" == True):		#need to add when object is detected
+		#if camera_centre != object_centre: #need to include frame centre from foam.py
+			#while(object_centre < camera_centre):
+				#turnLeft(0.5)
+			#else:
+				#turnRight(0.5)
 
 		#Keep a constant distance between target object
 		while(get_Camera_Distance == True):
@@ -36,8 +37,38 @@ def start():
 			else:
 				F.Thruster_Values(LDM = 180, Speed_PC=1) # move backwards
 		while(get_Camera_Distance == False):
-			F.turnRight(1)
+			F.turnRight(1)"""
 
+
+def getch():
+	fd = sys.stdin.fileno()
+	old_settings = termios.tcgetattr(fd)
+	try:
+		tty.setraw(sys.stdin.fileno())
+		ch = sys.stdin.read(1)
+	finally:
+		termios.tcsetattr(fd,termios.TCSADRAIN,old_settings)
+	return ch
+
+
+def controls():
+	while True:
+		char = getch()
+		if(char=="w"):
+			F.Thruster_Values(LDM = 0, Speed_PC=1) #forward
+		elif(char=="s"):
+			F.Thruster_Values(LDM = 180, Speed_PC=1) #backward
+		elif(char=="d"):
+			F.Thruster_Values(LDM = 90, Speed_PC=1) #move right
+		elif(char=="a"):
+			F.Thruster_Values(LDM = -90, Speed_PC=1) #move left
+		elif(char=="e"):
+			F.turnRight(1)
+		elif(char=="q"):
+			F.turnLeft(1)
+		elif(char=="h"):
+			stop()
+			break
 
 
 
@@ -53,6 +84,8 @@ def stop(): #This will stop every action your Pi is performing for ESC ofcourse.
 inp = input()
 if inp == "start":
     start()
+elif inp == "controls":
+	controls()
 elif inp == "stop":
     stop()
 else :
