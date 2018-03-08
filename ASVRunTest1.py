@@ -1,7 +1,6 @@
 import ASV_Functions as F
 import ASV_Parameters as P
 import numpy as np
-import imu
 import laser2
 import maestro 
 import time
