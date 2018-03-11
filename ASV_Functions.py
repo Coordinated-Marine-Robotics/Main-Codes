@@ -151,9 +151,12 @@ def Thruster_Values(LDM, Speed_PC): ## Speed_PC = percentage of max speed requir
             TiS.append(ESC_Fwd_Min + ((ESC_Fwd_Max - ESC_Fwd_Min)*Speed_PC) * Ti / max(abs(T)))
         if Ti < -T_cut_off:
             TiS.append(ESC_Rev_Min + ((ESC_Rev_Max - ESC_Rev_Min)*Speed_PC) * -Ti / max(abs(T)))
-        servo.setTarget(0, TiS[0])
-    	servo.setTarget(1, TiS[1])
-    	servo.setTarget(2, TiS[2])
+    TiN = [int(x) for x in TiS]
+    print(TiN)
+    servo.setTarget(0, TiN[0])
+    servo.setTarget(1, TiN[1])
+    servo.setTarget(2, TiN[2])
+    print(TiS)
     #return(TiS)
 
 def turnLeft(Turn_Speed_PC):

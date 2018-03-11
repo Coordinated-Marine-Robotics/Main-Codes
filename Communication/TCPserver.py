@@ -12,10 +12,7 @@ except socket.error as e:
     print(str(e))
     
 s.listen(5)
-
-#conn, addr = s.accept()
-
-#print('connected to: '+addr[0]+':'+str(addr[1]))
+print('Waiting for a connection.')
 
 def threaded_client(conn):
     conn.send(str.encode('Welcome, type your info\n'))
@@ -33,4 +30,3 @@ while True:
     print('connected to: '+addr[0]+':'+str(addr[1]))
     
     start_new_thread(threaded_client,(conn,))
-
