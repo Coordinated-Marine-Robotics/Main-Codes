@@ -59,7 +59,7 @@ def webcam():
 			M = cv.moments(c)
 			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
 			if radius > 10:
-				cv.circle(frame, (int(x), int(y)), int(radius),(0, 255, 255), 2)
+				detection = cv.circle(frame, (int(x), int(y)), int(radius),(0, 255, 255), 2)
 				cv.circle(frame, center, 5, (0, 0, 255), -1)
 		(minVal2, maxVal2, minLoc2, maxLoc2) = cv.minMaxLoc(mask)
 		res = cv.bitwise_and(frame,frame, mask= mask)

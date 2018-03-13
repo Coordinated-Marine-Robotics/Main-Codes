@@ -7,7 +7,7 @@ import maestro
 import time,sys,tty,termios
 import foam
 
-get_Camera_Distance = F.get_Camera_Distance()
+#get_Camera_Distance = F.get_Camera_Distance()
 
 max_value = 2500*4 #maximum speed desired for clockwise rotation
 min_value = 500*4  #minimum speed desired for anti-clockwise rotation
@@ -21,14 +21,16 @@ servo.setTarget(0,6000)
 servo.setTarget(1,6000)
 servo.setTarget(2,6000)
 
+print("start, controls or stop")
+
 """def start():
 	foam.webcam()
-	#while("detection" == True):		#need to add when object is detected
-		#if camera_centre != object_centre: #need to include frame centre from foam.py
-			#while(object_centre < camera_centre):
-				#turnLeft(0.5)
-			#else:
-				#turnRight(0.5)
+	while(foam.detection == True):		#need to add when object is detected
+		if camera_centre != object_centre: #need to include frame centre from foam.py
+			while(object_centre < camera_centre):
+				turnLeft(0.5)
+			else:
+				turnRight(0.5)
 
 		#Keep a constant distance between target object
 		while(get_Camera_Distance == True):
@@ -70,6 +72,49 @@ def controls():
 			stop()
 			break
 
+
+def control_speed(): 
+    print ("I'm Starting the motor, I hope its calibrated and armed.")
+    time.sleep(1)
+    speed1 = 1500*4    # change your speed if you want to.... it should be between 700 - 2000
+    speed2 = 1500*4
+    speed3 = 1500*4
+    print ("Controls - a to decrease speed & d to increase speed OR q to decrease a lot of speed & e to increase a lot of speed")
+    while True:
+        servo.setTarget(0,speed1)
+		servo.setTarget(1,speed2)
+		servo.setTarget(2,speed3)
+        inp = input()
+        
+        if inp == "a":
+            speed1 -= 10    # decrementing the speed like hell
+            print ("speed = %d" % speed1)
+        elif inp == "q":    
+            speed1 += 10    # incrementing the speed like hell
+            print ("speed = %d" % speed1)
+        elif inp == "w":
+            speed2 += 10     # incrementing the speed 
+            print ("speed = %d" % speed2)
+        elif inp == "s":
+            speed2 -= 10     # decrementing the speed
+            print ("speed = %d" % speed2)
+        elif inp == "e":
+            speed3 += 10     # incrementing the speed 
+            print ("speed = %d" % speed3)
+        elif inp == "d":
+            speed3 -= 10     # decrementing the speed
+            print ("speed = %d" % speed3)
+        elif inp == "stop":
+            stop()          #going for the stop function
+            break
+        elif inp == "manual":
+            manual_drive()
+            break
+        elif inp == "arm":
+            arm()
+            break	
+        else:
+            print ("WHAT DID I SAID!! Press a,q,d or e")
 
 
 def stop(): #This will stop every action your Pi is performing for ESC ofcourse.

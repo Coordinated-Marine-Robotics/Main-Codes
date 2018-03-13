@@ -51,6 +51,3 @@ def turnRight(Turn_Speed_PC):
     servo.setTarget(2, T3S)
     #return([T1S, T2S, T3S])
 
-
-Thruster_Values(0,1)
-print(TiS)
