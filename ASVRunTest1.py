@@ -131,6 +131,8 @@ if inp == "start":
     start()
 elif inp == "controls":
 	controls()
+elif inp == "speed":
+	control_speed()
 elif inp == "stop":
     stop()
 else :
