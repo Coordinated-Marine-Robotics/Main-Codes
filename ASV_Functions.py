@@ -1,6 +1,6 @@
 import numpy as np
 import ASV_Parameters as P
-import imu
+#import imu
 import laser2
 import maestro 
 import time
@@ -81,7 +81,7 @@ def Initial_Setup():
 	
 def get_Camera_Distance():
 	distance = laser2.laser_measurement()
-	print distance
+	print(distance)
 	return distance
 
 
@@ -89,7 +89,7 @@ def get_Camera_Distance():
 def get_Object_Centre():
 	get_Coords()
 	Object_Centre = ((y.ASV0 + y.ASV1)/2)
-	print Object_Centre
+	print(Object_Centre)
 	return Object_Centre
    
 

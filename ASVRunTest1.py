@@ -1,7 +1,7 @@
 import ASV_Functions as F
 import ASV_Parameters as P
 import numpy as np
-import imu
+#import imu
 import laser2
 import maestro 
 import time,sys,tty,termios
@@ -82,8 +82,8 @@ def control_speed():
     print ("Controls - a to decrease speed & d to increase speed OR q to decrease a lot of speed & e to increase a lot of speed")
     while True:
         servo.setTarget(0,speed1)
-		servo.setTarget(1,speed2)
-		servo.setTarget(2,speed3)
+        servo.setTarget(1,speed2)
+        servo.setTarget(2,speed3)
         inp = input()
         
         if inp == "a":
@@ -104,17 +104,20 @@ def control_speed():
         elif inp == "d":
             speed3 -= 10     # decrementing the speed
             print ("speed = %d" % speed3)
+        elif inp == "r":
+            speed1,speed2,speed3 = 1500*4
+            print ("speed1: %d\nspeed2: %d\nspeed3: %d" % speed1, speed2, speed3)
         elif inp == "stop":
             stop()          #going for the stop function
             break
-        elif inp == "manual":
-            manual_drive()
-            break
-        elif inp == "arm":
-            arm()
-            break	
+        #elif inp == "manual":
+        #    manual_drive()
+        #    break
+        #elif inp == "arm":
+        #    arm()
+        #    break	
         else:
-            print ("WHAT DID I SAID!! Press a,q,d or e")
+            print ("WHAT DID I SAID!! Press a,q,,w,s,e,d or stop")
 
 
 def stop(): #This will stop every action your Pi is performing for ESC ofcourse.
@@ -127,12 +130,13 @@ def stop(): #This will stop every action your Pi is performing for ESC ofcourse.
 
 #Starting the program
 inp = input()
-if inp == "start":
-    start()
-elif inp == "controls":
-	controls()
+#if inp == "start":
+#    start()
+if inp == "controls":
+    controls()
 elif inp == "speed":
-	control_speed()
+    control_speed()
+    print ("q,a: motor1\nw,s: motor2\ne,d: motor3\nr: reset all")
 elif inp == "stop":
     stop()
 else :
