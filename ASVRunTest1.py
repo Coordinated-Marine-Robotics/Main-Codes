@@ -6,6 +6,7 @@ import laser2
 import maestro 
 import time,sys,tty,termios
 import foam
+import tracking as T
 
 #get_Camera_Distance = F.get_Camera_Distance()
 
@@ -23,23 +24,24 @@ servo.setTarget(2,6000)
 
 print("start, controls or stop")
 
-"""def start():
-	foam.webcam()
-	while(foam.detection == True):		#need to add when object is detected
-		if camera_centre != object_centre: #need to include frame centre from foam.py
-			while(object_centre < camera_centre):
-				turnLeft(0.5)
-			else:
-				turnRight(0.5)
+def start():
+    T.webcam()
+    T.track()
+	#while(foam.detection == True):		#need to add when object is detected
+	#	if camera_centre != object_centre: #need to include frame centre from foam.py
+	#		while(object_centre < camera_centre):
+	#			turnLeft(0.5)
+	#		else:
+	#			turnRight(0.5)
 
 		#Keep a constant distance between target object
-		while(get_Camera_Distance == True):
-			if distance > 100:
-				F.Thruster_Values(LDM = 0, Speed_PC=1) # move forwards
-			else:
-				F.Thruster_Values(LDM = 180, Speed_PC=1) # move backwards
-		while(get_Camera_Distance == False):
-			F.turnRight(1)"""
+	#	while(get_Camera_Distance == True):
+	#		if distance > 100:
+	#			F.Thruster_Values(LDM = 0, Speed_PC=1) # move forwards
+	#		else:
+	#			F.Thruster_Values(LDM = 180, Speed_PC=1) # move backwards
+	#	while(get_Camera_Distance == False):
+	#		F.turnRight(1)
 
 
 def getch():
@@ -134,6 +136,8 @@ inp = input()
 #    start()
 if inp == "controls":
     controls()
+elif inp == "start":
+    start()
 elif inp == "speed":
     control_speed()
     print ("q,a: motor1\nw,s: motor2\ne,d: motor3\nr: reset all")
